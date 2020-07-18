@@ -89,6 +89,11 @@
 
             </div>
 
+
+            <div id="divError" class="alert alert-danger collapse">
+                <a id="linkClose" class="close" href="#">&times;</a>
+                <div id="divErrorText"></div>
+            </div> 
         </div>
 
 
@@ -104,11 +109,42 @@
     <script type="text/javascript">
         $(document).ready(function () {
 
+
+            $('#linkClose').click(function () {
+                $('#divError').hide('fade');
+            });
+
+
+
             $('#btnRegister').click(function () {
+
+
+                $.ajax({
+                    url: '/api/account/register',
+                    method: 'POST',
+                    data: {
+                        email: $('#txtEmail').val(),
+                        password: $('#txtPassword').val(),
+                        confirmPassword: $('#txtConfirmPassword').val()
+
+
+                    },
+                    success: function () {
+                        $('#successModel').modal('show');
+                    },
+                    error: function (er) {
+                        $('#divErrorText').text(er.responseText);
+                        $('#divError').show('fade');
+                    }
+
+
+                });
 
 
                 $('#successModel').modal('show');
             });
+
+           
         });
     </script>
 </body>
