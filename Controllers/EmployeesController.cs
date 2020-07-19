@@ -14,6 +14,7 @@ namespace EmployeeService.Controllers
         public IEnumerable<Employee> Get() {
 
             using(EmployeeDBEntities entities = new EmployeeDBEntities()) {
+               
                 return entities.Employees.ToList();
             }
 
