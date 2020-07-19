@@ -7,12 +7,13 @@ using System.Web.Http;
 
 namespace EmployeeService.Controllers
 {
-    public class EmployeesController : ApiController
+    [Authorize]
+    public class EmployeesController :ApiController
     {
 
         public IEnumerable<Employee> Get() {
 
-            using(EmployeeDBEntities entities =new EmployeeDBEntities()) {
+            using(EmployeeDBEntities entities = new EmployeeDBEntities()) {
                 return entities.Employees.ToList();
             }
 

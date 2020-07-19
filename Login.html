@@ -14,18 +14,17 @@
                 <thead>
                     <tr class="success">
                         <td colspan="2">
-                            New User Registration
+                            Existing User Login
+                            <a class="btn btn-success pull-right" href="Register.html">Register</a>
                         </td>
-
-                        <a class="btn btn-success pull-right" href="Login.html">Login</a>
                     </tr>
                 </thead>
 
                 <tbody>
                     <tr>
-                        <td>Email</td>
+                        <td>UserName</td>
                         <td>
-                            <input type="text" id="txtEmail" placeholder="Email" />
+                            <input type="text" id="txtUserName" placeholder="UserName" />
 
                         </td>
 
@@ -40,19 +39,11 @@
 
                     </tr>
 
-                    <tr>
-                        <td>Confirm Password</td>
-                        <td>
-                            <input type="password" id="txtConfirmPassword" placeholder="Confirm Password" />
-
-                        </td>
-
-                    </tr>
 
                     <tr class="success">
 
                         <td colspan="2">
-                            <input type="button" id="btnRegister" class="btn btn-success" value="Register" />
+                            <input type="button" id="btnLogin" class="btn btn-success" value="Login" />
 
 
                         </td>
@@ -65,37 +56,12 @@
 
             </table>
 
-            <div class="modal fade" tabindex="-1" id="successModel" data-keyboard="false" data-backdrop="static">
-
-                <div class="modal-dialog modal-sm">
-                    <div class="modal-content">
-
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4>Success</h4>
-                        </div>
-
-                        <div class="modal-body">
-                            <h2>Registeration Successful</h2>
-
-                        </div>
-
-                        <div class="modal-footer">
-                            <button type="button" data-dismiss="modal" class="btn btn-success">Close</button>
-                        </div>
-
-                    </div>
-
-
-                </div>
-
-            </div>
-
+  
 
             <div id="divError" class="alert alert-danger collapse">
                 <a id="linkClose" class="close" href="#">&times;</a>
                 <div id="divErrorText"></div>
-            </div> 
+            </div>
         </div>
 
 
@@ -118,21 +84,26 @@
 
 
 
-            $('#btnRegister').click(function () {
+            $('#btnLogin').click(function () {
 
 
                 $.ajax({
-                    url: '/api/account/register',
+                    url: '/token',
                     method: 'POST',
+                    contentType:'application/json',
                     data: {
-                        email: $('#txtEmail').val(),
+                        username: $('#txtUserName').val(),
                         password: $('#txtPassword').val(),
-                        confirmPassword: $('#txtConfirmPassword').val()
-
+                        grant_type:'password'
+                   
 
                     },
-                    success: function () {
-                        $('#successModel').modal('show');
+                    success: function (response) {
+
+                        sessionStorage.setItem('accessToken', response.access_token);
+                        window.location.href = "Data.html";
+
+
                     },
                     error: function (er) {
                         $('#divErrorText').text(er.responseText);
@@ -143,10 +114,10 @@
                 });
 
 
-           
+
             });
 
-           
+
         });
     </script>
 </body>
