@@ -56,7 +56,32 @@
 
             </table>
 
-  
+
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="success">
+                        <td >
+                            Social Logins
+                            <a class="btn btn-success pull-right" href="Register.html">Register</a>
+                        </td>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>
+
+                            <input type="button" id="btnGoogleLogin" value="Login with Google" />
+
+                        </td>
+                    </tr>
+
+                </tbody>
+
+
+
+
+            </table>
 
             <div id="divError" class="alert alert-danger collapse">
                 <a id="linkClose" class="close" href="#">&times;</a>
@@ -82,6 +107,10 @@
                 $('#divError').hide('fade');
             });
 
+            
+            $('#btnGoogleLogin').click(function () {
+               window.location.href = "/api/Account/ExternalLogin?provider=Google&response_type=token&client_id=self&redirect_uri=https%3A%2F%2Flocalhost%3A44343%2Flogin.html%2525generatestate%3Dtrue";
+            });
 
 
             $('#btnLogin').click(function () {
